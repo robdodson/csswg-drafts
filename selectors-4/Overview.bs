@@ -2256,24 +2256,13 @@ The Focus-Indicated Pseudo-class: '':focus-visible''</h3>
 		like clicking on the button with a mouse pointer.
 	</div>
 
-	The goal of this selector is to explain how the browser's default focus
-	indicator behavior works in order to encourage more visible, usable focus
-	styles, and discourage the practice of disabling the default user agent focus
-	style.
-
-	For example, a `:focus` style will always be applied
-	to a focused element, regardless of _how_ it was focused. Whereas a
-	`:focus-visible` style would only be applied to an element if it matches the
-	same heuristic that the UA uses to draw its default focus indicator.
-
 	The user agent should take into account the available signals as to whether
-	the user might find focus indication useful. The result of these heuristics
-	must determine whether `:focus-visible` should match on the currently focused
-	element.
+	the user might find focus indication useful.
 
-	By default, if there are no signals indicating that focus should be
-	indicated, then focus should not be indicated on the focused element, unless
-	the user has expressed a preference for always seeing a focus ring.
+	By default, if there are no signals indicating that focus should be indicated,
+	then focus should not be indicated on the focused element, unless the user has
+	expressed a preference for always seeing a focus indicator (possibly through a
+	UA setting).
 
 	The following may be considered signals:
 
@@ -2288,9 +2277,19 @@ The Focus-Indicated Pseudo-class: '':focus-visible''</h3>
 		programmatically, and this may be considered an extension of the original
 		keyboard interaction.
 
-	Because `:focus-visible` must match the UA's default behavior for when to show
-	a focus indicator, one way to meet this requirement would be to use
-	`:focus-visible` in the UA stylesheet itself.
+	The following may not be considered signals:
+
+	* The presence of a <code>tabindex</code> attribute is not a strong enough
+	signal to indicate that an element should always display a focus indicator.
+	* Changing the appearance of an element, for instance, removing a
+	<code>border</code> from a <a element><button></a>, should not cause its focus
+	indicator behavior to change.
+
+	<div class=note>
+		Because `:focus-visible` must match the UA's default behavior for when to
+		show a focus indicator, one way to meet this requirement would be to use
+		`:focus-visible` in the UA stylesheet itself.
+	</div>
 
 	<div class=advisement>
 		Page authors should follow these guidelines
@@ -2301,8 +2300,8 @@ The Focus-Indicated Pseudo-class: '':focus-visible''</h3>
 			(such as text fields or buttons),
 			use '':focus-visible''.
 		* Otherwise, if the element is emulating a text input,
-			or something else that is <em>intended</em> to receive keyboard interaction,
-			use '':focus''.
+			or something else that is <em>intended</em> to receive keyboard
+			interaction, use '':focus''.
 		* Otherwise,
 			use '':focus-visible''.
 	</div>
